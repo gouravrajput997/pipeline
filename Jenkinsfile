@@ -1,6 +1,5 @@
 node {
-	/* Continuous integration (CI), continuous delivery (CD) and continous Deployment */
-    def cicdcd
+    def cicd
 
     stage('Clone repository') {
         /* Cloning the Repository to our Workspace /var/lib/jenkins/workspace/jobname*/
@@ -11,21 +10,24 @@ node {
     stage('Build image') {
         /* This builds the actual image from Docker File */
 
-        cicdcd = docker.build("mitrasonu/thephotocraze")
+        cicd = docker.build("mitrasonu/webimg")
     }
 
     stage('Test image') {
         
-        cicdcd.inside {
+        cicd.inside {
             echo "Tests Passed Continous Delivery to Docker push"
         }
     }
 
     stage('Push image') {
-        /* You would need to first register with DockerHub before you can push images to your account */
+        /* 
+			You would need to first register with DockerHub before you can push images to your account
+		*/
         docker.withRegistry('https://registry.hub.docker.com', 'docker-hub') {
-            cicdcd.push("${env.BUILD_NUMBER}")
-     } 
+            cicd.push("${env.BUILD_NUMBER}")
+            cicd.push("latest")
+            } 
                 echo "Trying to Push Docker Build to DockerHub"
     }
 }
