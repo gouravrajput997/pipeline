@@ -10,7 +10,7 @@ node {
     stage('Build image') {
         /* This builds the actual image from Docker File */
 
-        cicd = docker.build("mitrasonu/webimg")
+        cicd = docker.build("mitrasonu/pipeline")
     }
 
     stage('Test image') {
@@ -24,7 +24,7 @@ node {
         /* 
 			You would need to first register with DockerHub before you can push images to your account
 		*/
-        docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-login') {
+        docker.withRegistry('https://registry.hub.docker.com', '1-3-batch') {
             cicd.push("${env.BUILD_NUMBER}")
             cicd.push("latest")
             } 
