@@ -24,7 +24,7 @@ node {
         /* 
 			You would need to first register with DockerHub before you can push images to your account
 		*/
-        docker.withRegistry('https://registry.hub.docker.com', '1-3-batch') {
+        docker.withRegistry('https://registry.hub.docker.com', 'hub-docker-login') {
             cicd.push("${env.BUILD_NUMBER}")
             cicd.push("latest")
             } 
