@@ -24,7 +24,7 @@ node {
         /* 
 			You would need to first register with DockerHub before you can push images to your account
 		*/
-        docker.withRegistry('https://registry.hub.docker.com', 'hub-docker-login') {
+        docker.withRegistry('https://registry.hub.docker.com', 'hello-jenkins') {
             cicd.push("${env.BUILD_NUMBER}")
             cicd.push("latest")
             } 
